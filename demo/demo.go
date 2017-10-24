@@ -47,8 +47,8 @@ func getCorpus() string {
 
 func main() {
 	var input, model string
-	input = "Apple makes the case that even its most banal features require a \"proficiency\" in machine learning"
-	model = "technology_en"
+	input = "Apple makes the case that even its most banal features require a \"proficiency\" in machine learning. Apple makes the case that even its most banal features require a \"proficiency\" in machine learning."
+	model = "en"
 
 	var err error
 	var tokenizer *gotokenizer.Tokenizer
@@ -62,10 +62,11 @@ func main() {
 		tokenizer.Train(wl, c)
 	}
 
-	var tokens []string = tokenizer.Tokenize(input)
-	fmt.Print("[")
-	for _, t := range tokens {
-		fmt.Printf("'%s', ", t)
+	var sentences [][]string = tokenizer.Sentences(input)
+	for _, s := range sentences {
+		for _, t := range s {
+			fmt.Printf("%s, ", t)
+		}
+		fmt.Println("")
 	}
-	fmt.Println("]")
 }
