@@ -2,7 +2,6 @@ package gotokenizer
 
 import (
 	"regexp"
-	"strings"
 )
 
 const (
@@ -39,25 +38,32 @@ func (t *Tokenizer) tokenizeSentences(s string) (tokens []sentence) {
 func (t *Tokenizer) tokenizeWords(txt string) (s sentence) {
 	var b []string = t.regex(txt)
 
-	s = append(s, &token{raw: Start, order: 0, next: nil, prev: nil})
-	for i, c := range b {
-		if strings.TrimSpace(c) != "" {
-			var f *token = &token{raw: c, order: i + 1, prev: s.get(i)}
-			s = append(s, f)
-			s.get(i).next = f
-		}
+	var o = 0
+	for _, c := range b {
+		var f *token = &token{raw: c, order: o, prev: s.get(o)}
+		s = append(s, f)
+		s.get(o).next = f
+		o++
 	}
-	s = append(s, &token{raw: End, order: len(s), next: nil, prev: s.get(len(s) - 1)})
 
 	if !t.m.trained {
 		return s
 	}
 
-	return nil
+	return s
 }
 
 func (t *Tokenizer) regex(s string) (tokens []string) {
-	var ws *regexp.Regexp = regexp.MustCompile(`\s`)
+	var ws *regexp.Regexp = regexp.MustCompile(`\s|\t`)
+	var temp []string = ws.Split(s, -1)
 
-	return ws.Split(s, -1)
+	var cr *regexp.Regexp = regexp.MustCompile(`\s|\t|"|'|\.|,|\:`)
+	for _, w := range temp {
+		var _w string = cr.ReplaceAllLiteralString(w, "")
+		if _w != "" {
+			tokens = append(tokens, w)
+		}
+	}
+
+	return tokens
 }

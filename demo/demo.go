@@ -56,17 +56,18 @@ func main() {
 		panic(err)
 	}
 
-	if !tokenizer.Trained() {
+	/*if !tokenizer.Trained() {
 		var wl []string = getWordlist()
 		var c string = getCorpus()
 		tokenizer.Train(wl, c)
-	}
+	}*/
 
 	var sentences [][]string = tokenizer.Sentences(input)
 	for _, s := range sentences {
+		fmt.Print("[")
 		for _, t := range s {
 			fmt.Printf("%s, ", t)
 		}
-		fmt.Println("")
+		fmt.Print("]\n")
 	}
 }

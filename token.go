@@ -2,7 +2,6 @@ package gotokenizer
 
 import (
 	"strings"
-	"fmt"
 )
 
 type token struct {
@@ -39,7 +38,6 @@ func (s sentence) clean() sentence {
 	var n sentence
 
 	for _, t := range s {
-		fmt.Println(t.raw, strings.TrimSpace(t.raw) != "")
 		if strings.TrimSpace(t.raw) != "" {
 			n = append(n, t)
 		}

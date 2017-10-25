@@ -3,7 +3,6 @@ package gotokenizer
 import "sort"
 
 
-
 func NewTokenizer(a string) (t *Tokenizer, err error) {
 	var m *model = initModel(a)
 

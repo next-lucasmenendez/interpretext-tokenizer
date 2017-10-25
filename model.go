@@ -1,18 +1,32 @@
 package gotokenizer
 
 import (
+	"path"
 	"regexp"
-	"fmt"
 	"strings"
+	"io/ioutil"
+	"path/filepath"
+
+	"fmt"
+)
+
+const (
+	modelPath string = "./models"
+	stopwords string = "stopwords"
+	corpus string = "corpus"
 )
 
 type model struct {
 	alias string
 	trained bool
+	stopwords []string
 }
 
-func initModel(a string) *model {
-	return &model{alias: a, trained: false}
+func initModel(a string) (m *model) {
+	m = &model{alias: a, trained: false}
+	m.trained = m.load()
+
+	return m
 }
 
 func (m *model) train(wl []string, c string) {
@@ -39,5 +53,32 @@ func (m *model) train(wl []string, c string) {
 }
 
 func (m *model) load() bool {
+	var err error
+	var root string
+	if root, err = filepath.Abs(modelPath); err != nil {
+		return false
+	}
+
+	var mPath string = path.Join(root, m.alias)
+	var swPath string = path.Join(mPath, stopwords)
+
+	var rawSw []byte
+	if rawSw, err = ioutil.ReadFile(swPath); err != nil {
+		return false
+	}
+
+	var lb *regexp.Regexp = regexp.MustCompile(`\n`)
+	m.stopwords = lb.Split(string(rawSw), -1)
+
+	return true
+}
+
+func (m *model) isStopword(t *token) bool {
+	for _, w := range m.stopwords {
+		if w == strings.ToLower(t.raw) {
+			return true
+		}
+	}
+
 	return false
 }
