@@ -1,42 +1,41 @@
 package gotokenizer
 
-import "sort"
+import "regexp"
 
+func Sentences(s string) (sentences [][]string) {
+	var (
+		numP   = regexp.MustCompile(`([0-9]+)\.([0-9]+)`)
+		stopsP = regexp.MustCompile(`[^..][!?.]\s`)
+		resP   = regexp.MustCompile(`\*\|\*`)
+		dotP   = regexp.MustCompile(`{stop}`)
 
-func NewTokenizer(a string) (t *Tokenizer, err error) {
-	var m *model = initModel(a)
+		noNum   = numP.ReplaceAllString(s, `$1*|*$2`)
+		noStops = stopsP.ReplaceAllString(noNum, `$0{stop}`)
+		text    = resP.ReplaceAllString(noStops, `.`)
+		sl      = dotP.Split(text, -1)
+	)
 
-	return &Tokenizer{m: m}, nil
+	for _, s := range sl {
+		sentences = append(sentences, Words(s))
+	}
+
+	return sentences
 }
 
-func (t *Tokenizer) Train(wl []string, c string) {
-	t.m.train(wl, c)
-}
+func Words(s string) (tokens []string) {
+	var (
+		ws = regexp.MustCompile(`\s|\t`)
+		cr = regexp.MustCompile(`\s|\t|"|'|\.|,|\:`)
 
-func (t *Tokenizer) Trained() (trained bool) {
-	return t.m.trained
-}
+		temp = ws.Split(s, -1)
+	)
 
-func (g *Tokenizer) Sentences(text string) ([][]string) {
-	var sl []sentence = g.tokenizeSentences(text)
-
-	var tt [][]string = make([][]string, len(sl))
-	for i, s := range sl {
-		sort.Sort(s)
-		for _, t := range s {
-			tt[i] = append(tt[i], t.raw)
+	for _, w := range temp {
+		var _w string = cr.ReplaceAllLiteralString(w, "")
+		if _w != "" {
+			tokens = append(tokens, w)
 		}
 	}
-	return tt
-}
 
-func (t *Tokenizer) Words(text string) ([]string) {
-	var s sentence = t.tokenizeWords(text)
-	var tl []string = make([]string, len(s))
-
-	sort.Sort(s)
-	for _, t := range s {
-		tl = append(tl, t.raw)
-	}
-	return tl
+	return tokens
 }
