@@ -4,22 +4,22 @@ import "regexp"
 
 func Sentences(s string) (sentences [][]string) {
 	var (
-		numP   = regexp.MustCompile(`([0-9]+)\.([0-9]+)`)
-		quoutesP = regexp.MustCompile(`("|'|“|”)`)
-		pstopsP = regexp.MustCompile(`"(.+)\.(.+)"`)
+		numP       = regexp.MustCompile(`([0-9]+)\.([0-9]+)`)
+		quoutesP   = regexp.MustCompile(`("|'|“|”)`)
+		pstopsP    = regexp.MustCompile(`"(.+)\.(.+)"`)
 		revpstopsP = regexp.MustCompile(`{partial_stop}`)
-		stopsP = regexp.MustCompile(`[^..][!?.]\s`)
-		resP   = regexp.MustCompile(`\*\|\*`)
-		dotP   = regexp.MustCompile(`{stop}`)
+		stopsP     = regexp.MustCompile(`[^..][!?.]\s`)
+		resP       = regexp.MustCompile(`\*\|\*`)
+		dotP       = regexp.MustCompile(`{stop}`)
 
-		noNum   = numP.ReplaceAllString(s, `$1*|*$2`)
+		noNum     = numP.ReplaceAllString(s, `$1*|*$2`)
 		noQuoutes = quoutesP.ReplaceAllString(noNum, "\"")
-		noPstops = pstopsP.ReplaceAllString(noQuoutes, "\"$1{partial_stop}$2\"")
-		noStops = stopsP.ReplaceAllString(noPstops, `$0{stop}`)
-		text    = resP.ReplaceAllString(noStops, `.`)
-		resText = revpstopsP.ReplaceAllString(text, `.`)
+		noPstops  = pstopsP.ReplaceAllString(noQuoutes, "\"$1{partial_stop}$2\"")
+		noStops   = stopsP.ReplaceAllString(noPstops, `$0{stop}`)
+		text      = resP.ReplaceAllString(noStops, `.`)
+		resText   = revpstopsP.ReplaceAllString(text, `.`)
 
-		sl      = dotP.Split(resText, -1)
+		sl = dotP.Split(resText, -1)
 	)
 
 	for _, s := range sl {
