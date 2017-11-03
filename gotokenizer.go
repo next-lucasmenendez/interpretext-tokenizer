@@ -5,7 +5,7 @@ import "regexp"
 func Sentences(s string) (sentences [][]string) {
 	var (
 		numP       = regexp.MustCompile(`([0-9]+)\.([0-9]+)`)
-		quoutesP   = regexp.MustCompile(`("|'|“|”|’)`)
+		quoutesP   = regexp.MustCompile(`("|'|“|”|’|«|»)`)
 		pstopsP    = regexp.MustCompile(`"(.+)\.(.+)"`)
 		revpstopsP = regexp.MustCompile(`{partial_stop}`)
 		stopsP     = regexp.MustCompile(`[^..][!?.]\s`)
