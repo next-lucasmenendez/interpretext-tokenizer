@@ -2,7 +2,7 @@ package gotokenizer
 
 import "regexp"
 
-func Sentences(s string) (sentences [][]string) {
+func Sentences(s string) (sentences []string) {
 	var (
 		numP       = regexp.MustCompile(`([0-9]+)\.([0-9]+)`)
 		quoutesP   = regexp.MustCompile(`("|'|“|”|’|«|»)`)
@@ -18,14 +18,9 @@ func Sentences(s string) (sentences [][]string) {
 		noStops   = stopsP.ReplaceAllString(noPstops, `$0{stop}`)
 		text      = resP.ReplaceAllString(noStops, `.`)
 		resText   = revpstopsP.ReplaceAllString(text, `.`)
-
-		sl = dotP.Split(resText, -1)
 	)
 
-	for _, s := range sl {
-		sentences = append(sentences, Words(s))
-	}
-
+	sentences = dotP.Split(resText, -1)
 	return sentences
 }
 
