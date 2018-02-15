@@ -20,7 +20,7 @@ func main() {
 
 	var sentences []string = gotokenizer.Sentences(input)
 	for _, s := range sentences {
-		fmt.Println(gotokenizer.Words(s))
+		fmt.Printf("q%\n", gotokenizer.Words(s))
 	}
 }
 ````

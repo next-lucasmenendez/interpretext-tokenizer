@@ -2,8 +2,6 @@ package gotokenizer
 
 import "regexp"
 
-const PUNTUATION_REGEXP string = `("|\.\.\.|\.|,|:|[0-9]+\.[0-9]+)`
-
 func Sentences(s string) (sentences []string) {
 	var (
 		// Patterns
@@ -31,7 +29,7 @@ func Sentences(s string) (sentences []string) {
 func Words(rs string) (tokens []string) {
 	var (
 		rgxS = regexp.MustCompile(`\s|\t`)
-		rgxD = regexp.MustCompile(PUNTUATION_REGEXP)
+		rgxD = regexp.MustCompile(`("|\.\.\.|\.|,|:|\(|\)|\[|]|{|}|¿|\?|¡|!|[0-9]+\.[0-9]+)`)
 		s = rgxS.Split(rs, -1)
 	)
 
