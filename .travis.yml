@@ -1,0 +1,7 @@
+lang: go
+go:
+  - 1.x
+  - master
+
+scripts:
+  - go test -v -race ./
