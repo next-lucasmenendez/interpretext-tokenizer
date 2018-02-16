@@ -1,4 +1,5 @@
 [![GoDoc](https://img.shields.io/badge/GoDoc-reference-5272B4.svg)](https://godoc.org/github.com/lucasmenendez/gotokenizer)
+[![Build Status](https://travis-ci.org/lucasmenendez/gotokenizer.svg?branch=master)](https://travis-ci.org/lucasmenendez/gotokenizer)
 
 # Gotokenizer
 Simple rule-based word/sentence tokenizer.
