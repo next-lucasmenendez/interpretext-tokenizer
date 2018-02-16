@@ -1,7 +1,10 @@
+// Provides simple api to tokenize sentences or words.
 package gotokenizer
 
 import "regexp"
 
+// Split text sentences using some regular expresions to replace special symbols.
+// Receives text string and return list of strings witch contains sentences separated.
 func Sentences(s string) (sentences []string) {
 	var (
 		// Patterns
@@ -26,11 +29,13 @@ func Sentences(s string) (sentences []string) {
 	return sentences
 }
 
+// Tokenize sentence in individual entities such as words or punctuation symbols.
+// Receives sentence string and returns list of string tokens.
 func Words(rs string) (tokens []string) {
 	var (
 		rgxS = regexp.MustCompile(`\s|\t`)
 		rgxD = regexp.MustCompile(`("|\.\.\.|\.|,|:|\(|\)|\[|]|{|}|¿|\?|¡|!|[0-9]+\.[0-9]+)`)
-		s = rgxS.Split(rs, -1)
+		s    = rgxS.Split(rs, -1)
 	)
 
 	for _, w := range s {
