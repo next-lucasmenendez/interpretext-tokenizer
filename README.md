@@ -1,6 +1,6 @@
-# Gotokenizer
 [![GoDoc](https://img.shields.io/badge/GoDoc-reference-5272B4.svg)](https://godoc.org/github.com/lucasmenendez/gotokenizer)
 
+# Gotokenizer
 Simple rule-based word/sentence tokenizer.
 
 ## Installation
