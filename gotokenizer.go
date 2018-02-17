@@ -35,7 +35,7 @@ func Words(s string) (tokens []string) {
 	var (
 		rgxS = regexp.MustCompile(`\s|\t`)
 		rgxD = regexp.MustCompile(`("|\.\.\.|\.|,|:|\(|\)|\[|]|{|}|¿|\?|¡|!|[0-9]+\.[0-9]+)`)
-		ws  = rgxS.Split(s, -1)
+		ws   = rgxS.Split(s, -1)
 	)
 
 	for _, w := range ws {

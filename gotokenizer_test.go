@@ -25,7 +25,7 @@ func TestSentences(t *testing.T) {
 
 func TestWords(t *testing.T) {
 	var input string = `Go (often referred to as golang) is a programming language created at Google[12] in 2.009 by Robert Griesemer, Rob Pike, and Ken Thompson[10].`
-	var expected []string = []string{ "Go", "(", "often", "referred", "to", "as", "golang", ")", "is", "a", "programming", "language", "created", "at", "Google", "[", "12", "]", "in", "2.009", "by", "Robert", "Griesemer", ",", "Rob", "Pike", ",", "and", "Ken", "Thompson", "[", "10", "]", ".", }
+	var expected []string = []string{"Go", "(", "often", "referred", "to", "as", "golang", ")", "is", "a", "programming", "language", "created", "at", "Google", "[", "12", "]", "in", "2.009", "by", "Robert", "Griesemer", ",", "Rob", "Pike", ",", "and", "Ken", "Thompson", "[", "10", "]", "."}
 
 	var tokens []string = Words(input)
 	if len(tokens) != len(expected) {
