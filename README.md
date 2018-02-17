@@ -20,7 +20,7 @@ import (
 )
 
 func main() {
-    var input string = "LG Mobile has posted just one quarter of profitability over the last two years, that was six months ago during the first quarter of sales of its new flagship, the LG G6, when it eked out a $3.2 million profit. Previous to that, you have to go way back to Q1 2015 for a quarterly profit."
+    var input string = `Go (often referred to as golang) is a programming language created at Google[12] in 2.009 by Robert Griesemer, Rob Pike, and Ken Thompson[10]. It is a compiled, statically typed language in the tradition of Algol and C, with garbage collection, limited structural typing[3], memory safety features and CSP-style concurrent programming features added.`
     
     var sentences []string = gotokenizer.Sentences(input)
     for _, s := range sentences {
