@@ -3,8 +3,9 @@ package gotokenizer
 
 import "regexp"
 
-// Split text sentences using some regular expresions to replace special symbols.
-// Receives text string and return list of strings witch contains sentences separated.
+// Split text sentences using some regular expresions to replace special
+// symbols. Receives text string and return list of strings witch contains
+// sentences separated.
 func Sentences(s string) (sentences []string) {
 	var (
 		// Patterns
@@ -31,19 +32,20 @@ func Sentences(s string) (sentences []string) {
 	return sentences
 }
 
-// Tokenize sentence in individual entities such as words or punctuation symbols.
-// Receives sentence string and returns list of string tokens.
+// Tokenize sentence in individual entities such as words or punctuation
+// symbols. Receives sentence string and returns list of string tokens.
 func Words(s string) (tokens []string) {
 	var (
-		rgxS = regexp.MustCompile(`\s|\t`)
-		rgxD = regexp.MustCompile(`("|\.\.\.|\.|,|:|\(|\)|\[|]|{|}|¿|\?|¡|!|[0-9]+\.[0-9]+)`)
-		ws   = rgxS.Split(s, -1)
+		sym string = `("|\.\.\.|\.|,|:|\(|\)|\[|]|{|}|¿|\?|¡|!|[0-9]+\.[0-9]+)`
+		reS = regexp.MustCompile(`\s|\t`)
+		reD = regexp.MustCompile(sym)
+		ws   = reS.Split(s, -1)
 	)
 
 	for _, w := range ws {
-		if rgxD.MatchString(w) {
-			processed := rgxD.ReplaceAllString(w, ` $1 `)
-			temps := rgxS.Split(processed, -1)
+		if reD.MatchString(w) {
+			processed := reD.ReplaceAllString(w, ` $1 `)
+			temps := reS.Split(processed, -1)
 
 			for _, t := range temps {
 				if len(t) > 0 {
