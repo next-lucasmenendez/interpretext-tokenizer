@@ -1,4 +1,4 @@
-[![GoDoc](https://img.shields.io/badge/GoDoc-reference-5272B4.svg)](https://godoc.org/github.com/lucasmenendez/gotokenizer)
+[![GoDoc](https://godoc.org/github.com/lucasmenendez/gotokenizer?status.svg)](https://godoc.org/github.com/lucasmenendez/gotokenizer)
 [![Build Status](https://travis-ci.org/lucasmenendez/gotokenizer.svg?branch=master)](https://travis-ci.org/lucasmenendez/gotokenizer)
 [![Report](https://goreportcard.com/badge/github.com/lucasmenendez/gotokenizer)](https://goreportcard.com/report/github.com/lucasmenendez/gotokenizer)
 
