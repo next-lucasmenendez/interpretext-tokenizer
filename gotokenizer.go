@@ -36,7 +36,7 @@ func Sentences(s string) (sentences []string) {
 // symbols. Receives sentence string and returns list of string tokens.
 func Words(s string) (tokens []string) {
 	var (
-		sym string = `("|\.\.\.|\.|,|:|\(|\)|\[|]|{|}|¿|\?|¡|!|[0-9]+\.[0-9]+)`
+		sym string = `("|\.\.\.|\.|,|:|;|\(|\)|\[|]|{|}|¿|\?|¡|!|[0-9]+\.[0-9]+)`
 		reS = regexp.MustCompile(`\s|\t`)
 		reD = regexp.MustCompile(sym)
 		ws   = reS.Split(s, -1)
