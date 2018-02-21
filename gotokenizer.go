@@ -9,11 +9,11 @@ import "regexp"
 func Sentences(s string) (sentences []string) {
 	var (
 		// Patterns
-		numP       = regexp.MustCompile(`([0-9]+)[\.|,]([0-9]+)`)
+		numP       = regexp.MustCompile(`([0-9]+)[\.|,|']([0-9]+)`)
 		quoutesP   = regexp.MustCompile(`("|'|“|”|’|«|»)`)
 		pstopsP    = regexp.MustCompile(`"(.+)\.(.+)"`)
-		revpstopsP = regexp.MustCompile(`{partial_stop}`)
-		dottedStop = regexp.MustCompile(`(.+)\.\.\.\s?([A-Z].*)`)
+		revpstopsP = regexp.MustCompile(`{p_stop}`)
+		dotStop = regexp.MustCompile(`(.+)\.\.\.\s?([A-Z].*)`)
 		stopsP     = regexp.MustCompile(`[^..][!?.]\s`)
 		resP       = regexp.MustCompile(`\*\|\*`)
 		dotP       = regexp.MustCompile(`{stop}`)
@@ -21,8 +21,8 @@ func Sentences(s string) (sentences []string) {
 		// Exchangers
 		noNum     = numP.ReplaceAllString(s, `$1*|*$2`)
 		noQuoutes = quoutesP.ReplaceAllString(noNum, `"`)
-		noPstops  = pstopsP.ReplaceAllString(noQuoutes, "\"$1{partial_stop}$2\"")
-		noDstops  = dottedStop.ReplaceAllString(noPstops, "\"$1...{stop}$2\"")
+		noPstops  = pstopsP.ReplaceAllString(noQuoutes, "\"$1{p_stop}$2\"")
+		noDstops  = dotStop.ReplaceAllString(noPstops, "\"$1...{stop}$2\"")
 		noStops   = stopsP.ReplaceAllString(noDstops, `$0{stop}`)
 		text      = resP.ReplaceAllString(noStops, `.`)
 		resText   = revpstopsP.ReplaceAllString(text, `.`)
