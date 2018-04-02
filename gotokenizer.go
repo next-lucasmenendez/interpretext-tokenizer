@@ -1,4 +1,4 @@
-// Provides simple api to tokenize sentences or words.
+// gotokenizer package provides simple api to tokenize sentences or words.
 package gotokenizer
 
 import (
@@ -6,9 +6,9 @@ import (
 	"strings"
 )
 
-// Split text sentences using some regular expresions to replace special
-// symbols. Receives text string and return list of strings witch contains
-// sentences separated.
+// Sentences function splits text sentences using some regular expressions to
+// replace special symbols. Receives text string and return list of strings
+// witch contains sentences separated.
 func Sentences(s string) (sentences []string) {
 	var (
 		// Patterns
@@ -16,7 +16,7 @@ func Sentences(s string) (sentences []string) {
 		quoutesP   = regexp.MustCompile(`("|'|“|”|’|«|»)`)
 		pstopsP    = regexp.MustCompile(`"(.+)\.(.+)"`)
 		revpstopsP = regexp.MustCompile(`{p_stop}`)
-		dotStop = regexp.MustCompile(`(.+)\.\.\.\s?([A-Z].*)`)
+		dotStop    = regexp.MustCompile(`(.+)\.\.\.\s?([A-Z].*)`)
 		stopsP     = regexp.MustCompile(`[^..][!?.]\s`)
 		resP       = regexp.MustCompile(`\*\|\*`)
 		dotP       = regexp.MustCompile(`{stop}`)
@@ -38,14 +38,15 @@ func Sentences(s string) (sentences []string) {
 	return
 }
 
-// Tokenize sentence in individual entities such as words or punctuation
-// symbols. Receives sentence string and returns list of string tokens.
+// Words function tokenizes sentence in individual entities such as words or
+// punctuation symbols. Receives sentence string and returns list of string
+// tokens.
 func Words(s string) (tokens []string) {
 	var (
 		sym string = `("|\.\.\.|\.|,|:|;|\(|\)|\[|]|{|}|¿|\?|¡|!|[0-9]+\.[0-9]+)`
-		reS = regexp.MustCompile(`\s|\t`)
-		reD = regexp.MustCompile(sym)
-		ws   = reS.Split(s, -1)
+		reS        = regexp.MustCompile(`\s|\t`)
+		reD        = regexp.MustCompile(sym)
+		ws         = reS.Split(s, -1)
 	)
 
 	for _, w := range ws {
