@@ -1,5 +1,5 @@
-// gotokenizer package provides simple api to tokenize sentences or words.
-package gotokenizer
+// Package tokenizer package provides simple api to tokenize sentences or words.
+package tokenizer
 
 import (
 	"regexp"
